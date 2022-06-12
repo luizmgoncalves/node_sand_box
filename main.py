@@ -28,7 +28,7 @@ def draw_all_nodes():
         for lnode in node.links.values():
             try:
                 if node in path and (lnode is path[path.index(node)-1] or lnode is path[path.index(node)+1]):
-                    pygame.draw.line(screen, (255, 0, 0), node.pos, lnode.pos)
+                    pygame.draw.line(screen, (255, 0, 0), node.pos, lnode.pos, 3)
                 else:
                     pygame.draw.line(screen, (0, 0, 0), node.pos, lnode.pos)
             except Exception as error:

@@ -1,4 +1,4 @@
-import random, pygame
+import random, pygame, math
 
 pygame.font.init()
 
@@ -52,10 +52,17 @@ class Node:
         if valids:
             print('valids: ', [[x.name for x in y] for y in valids])
             self.used = False
-            return min(valids, key=len)
+
+            return min(valids, key=self.weight)
 
         self.used = False
         return path
 
+    @staticmethod
+    def weight(path):
+        path1 = path[:-1]
+        path2 = path[1:]
+        return sum([math.hypot(node1.pos[0]-node2.pos[0], node1.pos[1]-node2.pos[1]) for node1, node2 in zip(path1, path2)])
+            
 
 

@@ -4,7 +4,7 @@ import pygame, nodes
 
 def find():
     global path, nodes_list
-    path = nodes_list[0].find_path('4', [])
+    path = con_selected1.find_path(con_selected2, [])
     print([ x.name for x in path])
     print('-'*40, '\n'*3)
     clean_nodes()
@@ -56,6 +56,10 @@ nodes_list[2].connect(nodes_list[3])
 
 nodes_list[3].connect(nodes_list[4])
 
+con_selected1 = nodes_list[0]
+
+con_selected2 = '4'
+
 path = None
 find()
 
@@ -83,11 +87,18 @@ while running:
                         find()
 
                         selected = node
+                    
+                    if actual_function == 'selecting path' and node is not selected and selected is not None:
+                        con_selected1 = selected
+                        con_selected2 = node.name
+                        selected = node
+                        find()
 
                     if node is selected:
                         selected = None
                     else:
                         selected = node
+                    
             
             draw_all_nodes()
         
@@ -98,6 +109,9 @@ while running:
                 draw_all_nodes()
 
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_s:
+                actual_function = 'selecting path'
+            
             if event.key == pygame.K_m:
                 actual_function = 'move'
 

@@ -33,7 +33,7 @@ class Node:
         print(f'(a procura do {name}){self.name} não achou nos imediatos')
 
         if limit is not None:
-            if len(path) >= limit:
+            if self.weight(path) >= limit:
                 print(f'passou do limite {limit}')
                 return path
 
@@ -46,7 +46,7 @@ class Node:
                 print(f'(a procura do {name}){self.name} tenta {anode.name}')
                 res = anode.find_path(name, path.copy(), limit)
                 if res[-1].name == name:
-                    limit = len(res)
+                    limit = self.weight(res)
                     valids.append(res)
         
         if valids:
